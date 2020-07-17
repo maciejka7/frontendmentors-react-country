@@ -1,0 +1,21 @@
+@mixin flex-default {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.homepage {
+
+
+  &__nav {
+    @include flex-default();
+    background-color: #fff;
+    border-bottom: 3px solid #f1f1f1
+  }
+
+  &__filters {
+    @include flex-default();
+  }
+}
