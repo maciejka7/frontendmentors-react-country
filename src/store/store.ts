@@ -1,5 +1,7 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import
+{ configureStore, combineReducers , ThunkAction, Action } from "@reduxjs/toolkit";
 import country from "./country.slice";
+import details from './details.slice';
 
 import {
   TypedUseSelectorHook,
@@ -7,7 +9,8 @@ import {
 } from "react-redux";
 
 const rootReducer = combineReducers({
-  country
+  country,
+  details
 });
 
 const store = configureStore({
@@ -16,6 +19,14 @@ const store = configureStore({
 
 export type AppDispatch = typeof store.dispatch;
 export type AppState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof store.getState>;
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+    ReturnType,
+    RootState,
+    unknown,
+    Action<string>
+    >;
 export const useSelector: TypedUseSelectorHook<AppState> = useTypedSelector;
 
 export default store;

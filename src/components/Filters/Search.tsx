@@ -6,7 +6,7 @@ interface Props {}
 const Search: React.FunctionComponent<Props> = () => {
   const dispatch = useDispatch();
 
-  const handleFilter = e => {
+  const handleFilter = (e : React.ChangeEvent<HTMLInputElement>) => {
     dispatch(filterCountriesForHomePage(e.target.value));
   };
 
@@ -14,7 +14,7 @@ const Search: React.FunctionComponent<Props> = () => {
     <div>
       <form action="">
         <input
-          onChange={e => handleFilter(e)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilter(e)}
           type="text"
           placeholder="Search for the country"
         />

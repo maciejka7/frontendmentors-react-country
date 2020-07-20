@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from 'react-router-dom'
 import styles from "./Header.module.scss";
 
 interface Props {
@@ -6,7 +7,7 @@ interface Props {
 }
 
 const Header: React.FunctionComponent<Props> = ({ text }) => {
-  return <h1 className={styles.header}>{text}</h1>;
+  return <Link className={styles.header} to='/'><h1 >{text}</h1></Link>;
 };
 
 export default Header;

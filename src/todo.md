@@ -1,0 +1,1 @@
+- [ ] resolve all ts ignore case
