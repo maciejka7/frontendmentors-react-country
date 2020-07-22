@@ -1,0 +1,46 @@
+.detail {
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0 50px;
+    gap: 125px;
+
+  }
+
+  &__flag {
+    width: 50vw;
+    height: 50vh;
+    max-height: 350px;
+    flex: 1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  &__infoWrapper {
+    flex: 1;
+  }
+
+  &__infoDetails {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__borderButton {
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin: 0 5px;
+    display: inline-flex;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      border: 1px solid transparent;
+    }
+
+  }
+}

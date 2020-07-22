@@ -1,10 +1,16 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {RootState} from './store';
-import { fetchCountryByAlpha2Code } from "../servies/countries.service";
+import {fetchCountryByAlpha2Code} from "../servies/countries.service";
+import {DetailsInfo} from "./details.interfaces";
 
-interface IInitialState {}
+interface InitialState {
+    data: DetailsInfo
+}
 
-const initialState: IInitialState = {};
+const initialState: InitialState = {
+    data: {}
+};
+
 
 export const fetchCountriesByCodeThunk = createAsyncThunk(
     "details/fetchCountriesData",
@@ -18,17 +24,23 @@ const details = createSlice({
     name: "details",
     initialState,
     reducers: {
-        
+        clearDetailsInfo: (state): void => {
+            state.data = {}
+        }
     },
     extraReducers: {
 
         [fetchCountriesByCodeThunk.fulfilled as any]: (state, action) => {
-            // @ts-ignore
-            state.details = action.payload;
+            state.data = action.payload;
         },
     }
 });
-// @ts-ignore
-export const selectDetails = (state: RootState) => state.details;
+
+export const selectDetails = (state: RootState) => state.details.data;
+export const selectCurrentDetailsCountryAlphaCode = (state: RootState) => {
+    return state.details.data.alpha3Code;
+};
+
+export const {clearDetailsInfo} = details.actions;
 
 export default details.reducer;
