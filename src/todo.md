@@ -1,1 +1,4 @@
 - [ ] resolve all ts ignore case
+- [ ] add loading mechanizm to main page
+- [ ] add loading mechanizm to detail page
+- [ ] add icons from style guide

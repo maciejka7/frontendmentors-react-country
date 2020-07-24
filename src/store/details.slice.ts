@@ -4,11 +4,13 @@ import {fetchCountryByAlpha2Code} from "../servies/countries.service";
 import {DetailsInfo} from "./details.interfaces";
 
 interface InitialState {
-    data: DetailsInfo
+    data: DetailsInfo,
+    isLoading: boolean
 }
 
 const initialState: InitialState = {
-    data: {}
+    data: {},
+    isLoading: false
 };
 
 
@@ -29,9 +31,12 @@ const details = createSlice({
         }
     },
     extraReducers: {
-
+        [fetchCountriesByCodeThunk.pending as any]: (state) => {
+            state.isLoading = true;
+        },
         [fetchCountriesByCodeThunk.fulfilled as any]: (state, action) => {
             state.data = action.payload;
+            state.isLoading = false;
         },
     }
 });
@@ -40,6 +45,7 @@ export const selectDetails = (state: RootState) => state.details.data;
 export const selectCurrentDetailsCountryAlphaCode = (state: RootState) => {
     return state.details.data.alpha3Code;
 };
+export const selectIsDetailsLoading = (state: RootState) => state.details.isLoading;
 
 export const {clearDetailsInfo} = details.actions;
 

@@ -1,15 +1,18 @@
 import React, {useEffect} from "react";
-import {useSelector, useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {FiltersArray} from "../../servies/filters";
 import styles from "./Country.module.scss";
 import {
+    fetchCountriesByFiltersThunk,
     selectFilteredCountries,
-    fetchCountriesByFiltersThunk
+    selectIsCountriesAreLoaded
 } from "../../store/country.slice";
-import CountryCard, {CountryBasicData} from "./CountryCard";
+import CountryCard from "./CountryCard";
+import Loading from "../LoadingBox/Loading";
 
 const Country = () => {
     const countries = useSelector(selectFilteredCountries);
+    const isLoading = useSelector(selectIsCountriesAreLoaded);
     const dispatch = useDispatch();
 
     const filters: FiltersArray = [
@@ -29,20 +32,26 @@ const Country = () => {
 
     return (
         <div>
-            <h2>country works!</h2>
             <div className={styles.wrapper}>
-                {countries &&
-                countries.map((item: any, index: number) => {
-                    const {flag, ...rest} = item;
 
-                    return (
-                        <CountryCard
-                            key={item.alpha3Code}
-                            flagSrc={flag}
-                            data={{...rest}}
-                        />
-                    );
-                })}
+                {isLoading ?
+                    <Loading/> :
+                    <>
+                        {countries &&
+                        countries.map((item: any) => {
+                            const {flag, ...rest} = item;
+
+                            return (
+                                <CountryCard
+                                    key={item.alpha3Code}
+                                    flagSrc={flag}
+                                    data={{...rest}}
+                                />
+
+                            );
+                        })}
+                    </>
+                }
             </div>
         </div>
     );

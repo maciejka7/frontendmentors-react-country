@@ -1,9 +1,6 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {RootState} from './store';
-import {
-    fetchAllCountires,
-    fetchAllByFilters
-} from "../servies/countries.service";
+import {fetchAllByFilters, fetchAllCountires} from "../servies/countries.service";
 
 import {FiltersArray} from "../servies/filters";
 import {CountryBasicData} from "../components/Country/CountryCard";
@@ -13,6 +10,7 @@ interface IInitialState {
     countriesByPage: [],
     countriesForHomepage: [],
     filteredCountries: []
+    isLoading: boolean
 }
 
 const initialState: IInitialState = {
@@ -20,13 +18,14 @@ const initialState: IInitialState = {
     countries: [],
     countriesByPage: [],
     countriesForHomepage: [],
-    filteredCountries: []
+    filteredCountries: [],
+    isLoading: false
 
 };
 
 export const fetchCountriesThunk = createAsyncThunk(
     "countries/fetchAll",
-    async (pageToFetch: number) => {
+    async () => {
         const response = await fetchAllCountires();
         return response.data;
     }
@@ -52,22 +51,29 @@ const country = createSlice({
         }
     },
     extraReducers: {
+        [fetchCountriesThunk.pending as any]: (state) => {
+            state.isLoading = true;
+        },
+        [fetchCountriesByFiltersThunk.pending as any]: (state) => {
+            state.isLoading = true;
+        },
         [fetchCountriesThunk.fulfilled as any]: (state, action) => {
             state.countries = action.payload;
+            state.isLoading = false;
         },
         [fetchCountriesByFiltersThunk.fulfilled as any]: (state, action) => {
             state.filteredCountries = action.payload;
             state.countriesForHomepage = action.payload;
+            state.isLoading = false;
         }
     }
 });
 
-// @ts-ignore
 export const selectCountry = (state: RootState) => state.country.countries;
-// @ts-ignore
 export const selectCountriesForHomePage = (state: RootState) => state.country.countriesForHomepage;
-// @ts-ignore
 export const selectFilteredCountries = (state: RootState) => state.country.filteredCountries;
+
+export const selectIsCountriesAreLoaded = (state: RootState) => state.country.isLoading;
 
 export const {filterCountriesForHomePage} = country.actions;
 

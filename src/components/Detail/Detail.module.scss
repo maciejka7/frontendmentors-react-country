@@ -1,11 +1,13 @@
 .detail {
+  display: flex;
+  padding: 50px;
 
   &__wrapper {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    padding: 0 50px;
     gap: 125px;
+    margin-top: 50px;
 
   }
 
