@@ -8,7 +8,6 @@
     align-items: center;
     gap: 125px;
     margin-top: 50px;
-
   }
 
   &__flag {
@@ -23,26 +22,5 @@
 
   &__infoWrapper {
     flex: 1;
-  }
-
-  &__infoDetails {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__borderButton {
-    border-radius: 4px;
-    padding: 5px 10px;
-    margin: 0 5px;
-    display: inline-flex;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.05);
-      border: 1px solid transparent;
-    }
-
   }
 }
