@@ -7,8 +7,6 @@
   margin: 25px;
   text-decoration: none;
 
-
-
   &__flag {
     position: relative;
     z-index: 2;
@@ -18,6 +16,10 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    &--loading {
+      background-color: lightslategray;
+    }
   }
 
   &__data {
