@@ -1,4 +1,5 @@
 import * as React from "react";
+import { memo } from 'react'
 import { Link } from "react-router-dom";
 import { LazyImage } from "react-lazy-images";
 import styles from "./CountryCard.module.scss";
@@ -18,7 +19,7 @@ interface Props {
 
 const CountryCard: React.FunctionComponent<Props> = ({ flagSrc, data }) => {
   const { name, capital, region, population, alpha3Code } = data;
-
+  console.log('render ');
   return (
     <Link className={styles["card"]} to={`/${alpha3Code}`}>
       <LazyImage
@@ -59,4 +60,4 @@ const CountryCard: React.FunctionComponent<Props> = ({ flagSrc, data }) => {
   );
 };
 
-export default CountryCard;
+export default memo(CountryCard);

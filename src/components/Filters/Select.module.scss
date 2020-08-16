@@ -1,0 +1,53 @@
+@mixin standard-style {
+  background: white;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+  padding: 20px;
+}
+
+
+.select {
+  position: relative;
+
+  @include standard-style();
+
+  &__label {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    p {
+      margin: 0 40px 0 0 ;
+      padding: 0;
+    }
+  }
+
+  &__menu {
+    @include standard-style();
+    padding: 0;
+    position: absolute;
+    top: 70px;
+    width: 100%;
+    left: 0;
+    z-index: 100;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: 10px 10px 10px 20px;
+      cursor: pointer;
+
+      &:hover {
+        font-weight: bold;
+        background-color: rgba(0,0,0,0.015);
+      }
+    }
+  }
+}
+

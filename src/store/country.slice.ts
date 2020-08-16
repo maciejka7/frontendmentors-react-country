@@ -1,4 +1,5 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { filter, toLower} from 'lodash'
 import {RootState} from './store';
 import {fetchAllByFilters, fetchAllCountires} from "../servies/countries.service";
 
@@ -33,8 +34,8 @@ export const fetchCountriesThunk = createAsyncThunk(
 
 export const fetchCountriesByFiltersThunk = createAsyncThunk(
     "countries/fetchByFilters",
-    async (fillterArray: FiltersArray) => {
-        const response = await fetchAllByFilters(fillterArray);
+    async (filterArray: FiltersArray) => {
+        const response = await fetchAllByFilters(filterArray);
         return response.data;
     }
 );
@@ -44,10 +45,19 @@ const country = createSlice({
     name: "country",
     initialState,
     reducers: {
-        // @ts-ignore
-        filterCountriesForHomePage: (state, action) => {
+        filterCountriesForHomePage: (state, action: PayloadAction<string>) => {
+
             // @ts-ignore
-            state.filteredCountries = state.countriesForHomepage.filter((item: CountryBasicData) => item.name.toLocaleLowerCase().includes(action.payload.toLocaleLowerCase()))
+            state.filteredCountries = filter(state.filteredCountries, function(item: any) {
+                console.log(toLower(item.name).includes(toLower(action.payload)));
+                return toLower(item.name).includes(toLower(action.payload))}
+                )
+
+        },
+
+        filterCountriesByRegionName: (state, action: PayloadAction<string>) => {
+            // @ts-ignore
+            state.filteredCountries = state.countriesForHomepage.filter((item: CountryBasicData) => item.region.toLocaleLowerCase().includes(action.payload.toLowerCase()))
         }
     },
     extraReducers: {
@@ -75,6 +85,6 @@ export const selectFilteredCountries = (state: RootState) => state.country.filte
 
 export const selectIsCountriesAreLoaded = (state: RootState) => state.country.isLoading;
 
-export const {filterCountriesForHomePage} = country.actions;
+export const {filterCountriesForHomePage, filterCountriesByRegionName} = country.actions;
 
 export default country.reducer;

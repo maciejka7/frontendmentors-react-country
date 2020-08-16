@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./BorderCountries.module.scss";
 
 interface Props {
@@ -11,10 +12,13 @@ const BorderCountries = ({ borders }: Props) => {
       <p>
         Border countries:
         {borders.map((country: string) => (
-          <strong className={styles.borderCountiresButton} key={country}>
-            {" "}
-            {country}
-          </strong>
+          <Link
+            key={country}
+            className={styles.borderCountiresButton}
+            to={`/${country}`}
+          >
+            <strong> {country} </strong>
+          </Link>
         ))}
       </p>
     </div>

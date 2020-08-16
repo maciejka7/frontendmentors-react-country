@@ -1,0 +1,21 @@
+@mixin standard-style {
+  background: white;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+}
+
+
+.search {
+
+
+  input {
+    @include standard-style;
+    padding: 20px;
+    border: none;
+
+    &:active, &:focus-within {
+      outline: none;
+      border:1px solid hsl(209, 23%, 22%);
+    }
+  }
+}
